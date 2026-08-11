@@ -1,6 +1,7 @@
 package Utils;
 
 public class UserData {
+    // Account infomation
     private String title = "Mr";
     private String password;
     private String day;
@@ -9,6 +10,60 @@ public class UserData {
     private boolean newsletter;
     private boolean optin;
 
+    // Address information
+    private String typeFirstName;
+    private String typeLastName;
+    private String typeCompany;
+    private String typeAddress1;
+    private String typeAddress2;
+    private String chooseCountry;
+    private String typeState;
+    private String typeCity;
+    private String typeZipcode;
+    private String typeMobileNumber;
+
+    // Getter Address Information
+    public String getFirstName() {
+        return typeFirstName;
+    }
+
+    public String getLastName() {
+        return typeLastName;
+    }
+
+    public String getCompany() {
+        return typeCompany;
+    }
+
+    public String getAddress1() {
+        return typeAddress1;
+    }
+
+    public String getAddress2() {
+        return typeAddress2;
+    }
+
+    public String getCountry() {
+        return chooseCountry;
+    }
+
+    public String getState() {
+        return typeState;
+    }
+
+    public String getCity() {
+        return typeCity;
+    }
+
+    public String getZipcode() {
+        return typeZipcode;
+    }
+
+    public String getMobileNumber() {
+        return typeMobileNumber;
+    }
+
+    // Getter account information
     public String getTitle() {
         return title;
     }
@@ -37,6 +92,7 @@ public class UserData {
         return optin;
     }
 
+    // Setter account information
     public UserData setTitle(String title) {
         this.title = title;
         return this;
@@ -57,6 +113,41 @@ public class UserData {
     public UserData setOption(boolean newsletter, boolean optin) {
         this.newsletter = newsletter;
         this.optin = optin;
+        return this;
+    }
+
+    // Setter Address Information
+    public UserData setFullName(String typeFirstname, String typeLastName) {
+        this.typeFirstName = typeFirstname;
+        this.typeLastName = typeLastName;
+        return this;
+    }
+
+    public UserData setCompany(String typeCompany) {
+        this.typeCompany = typeCompany;
+        return this;
+    }
+
+    public UserData setAddress(String typeAddress1, String typeAddress2) {
+        this.typeAddress1 = typeAddress1;
+        this.typeAddress2 = typeAddress2;
+        return this;
+    }
+
+    public UserData setCountry(String chooseCountry, String typeState, String typeCity) {
+        this.chooseCountry = chooseCountry;
+        this.typeState = typeState;
+        this.typeCity = typeCity;
+        return this;
+    }
+
+    public UserData setZipcode(String typeZipcode) {
+        this.typeZipcode = typeZipcode;
+        return this;
+    }
+
+    public UserData setMobilePhone(String typeMobileNumber) {
+        this.typeMobileNumber = typeMobileNumber;
         return this;
     }
 }

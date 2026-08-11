@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import Base.BaseTest;
+import Pages.CreateAccountSuccess;
+import Pages.DeleteAccount;
 import Pages.EnterAccountInfoPage;
 import Pages.HomePage;
 import Pages.LoginSignupPage;
@@ -29,5 +31,29 @@ public class RegisterTest extends BaseTest {
                 .setOption(true, true);
 
         enterAccountInfoPage.fillAccountInfo(user);
+
+        UserData address = new UserData()
+                .setFullName("Huy", "Deliver")
+                .setCompany("BKT")
+                .setAddress("Tào Xuyên", "")
+                .setCountry("Canada", "Miền Bắc", "Thanh hóa")
+                .setZipcode("200304")
+                .setMobilePhone("0917196589");
+        enterAccountInfoPage.fillAddressInfo(address);
+
+        enterAccountInfoPage.CreateAccount();
+        CreateAccountSuccess createAccountSuccess = new CreateAccountSuccess(driver);
+        Assert.assertTrue(createAccountSuccess.isAccountCeated());
+
+        createAccountSuccess.redirectAfterCreate();
+
+        Assert.assertTrue(homePage.isUserLogin());
+
+        homePage.deleteAccount();
+
+        DeleteAccount deleteAccount = new DeleteAccount(driver);
+        Assert.assertTrue(deleteAccount.isAccountDelete());
+
+        deleteAccount.redirectAfterDelete();
     }
 }
