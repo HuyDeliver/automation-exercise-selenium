@@ -12,15 +12,14 @@ public class HomePage {
 
     private By textDelete = By.xpath("//a[contains(text(),'Delete Account')]");
 
-    // WebElement textLogin =
-    // driver.findElement(By.xpath("//a[contains(text(),'Logged in as')]"));
+    private By logOut = By.xpath("//a[contains(text(),'Logout')]");
 
-    // Assert.assertEquals(textLogin.getText(), "Logged in as Huydeliver");
+    private String urlWeb;
 
-    // WebElement textDelete =
-    // driver.findElement(By.xpath("//a[contains(text(),'Logout')]"));
+    // String urlWeb = driver.getCurrentUrl();
 
-    // textDelete.click();
+    // Assert.assertEquals(urlWeb, "https://automationexercise.com/login");
+    // }
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -41,5 +40,14 @@ public class HomePage {
     public DeleteAccount deleteAccount() {
         driver.findElement(textDelete).click();
         return new DeleteAccount(driver);
+    }
+
+    public boolean isNavitoLoginPage(String currentUrl) {
+        return currentUrl.equalsIgnoreCase("https://automationexercise.com/login");
+    }
+
+    public LoginSignupPage logOut() {
+        driver.findElement(logOut).click();
+        return new LoginSignupPage(driver);
     }
 }

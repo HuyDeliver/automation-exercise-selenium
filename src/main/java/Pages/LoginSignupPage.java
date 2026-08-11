@@ -17,6 +17,7 @@ public class LoginSignupPage {
     private By loginPassword = By.xpath("//input[@data-qa='login-password']");
     private By loginButton = By.xpath("//button[@data-qa='login-button']");
     private By loginTitle = By.xpath("//h2[text()='Login to your account']");
+    private By loginFail = By.xpath("//p[text()='Your email or password is incorrect!']");
 
     public LoginSignupPage(WebDriver driver) {
         this.driver = driver;
@@ -30,6 +31,10 @@ public class LoginSignupPage {
         return !driver.findElements(loginTitle).isEmpty();
     }
 
+    public boolean isLoginFail() {
+        return !driver.findElements(loginFail).isEmpty();
+    }
+
     public EnterAccountInfoPage signup(String name, String email) {
         driver.findElement(signupName).clear();
         driver.findElement(signupName).sendKeys(name);
@@ -41,9 +46,11 @@ public class LoginSignupPage {
         return new EnterAccountInfoPage(driver);
     }
 
-    public void login(String email, String password) {
+    public HomePage login(String email, String password) {
         driver.findElement(loginEmail).sendKeys(email);
         driver.findElement(loginPassword).sendKeys(password);
         driver.findElement(loginButton).click();
+        return new HomePage(driver);
     }
+
 }
