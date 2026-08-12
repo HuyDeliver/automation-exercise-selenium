@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Utils.Utils;
+
 public class HomePage {
     private WebDriver driver;
 
@@ -19,6 +21,10 @@ public class HomePage {
     private By logOut = By.xpath("//a[contains(text(),'Logout')]");
 
     private By clickContact = By.xpath("//a[contains(text(),'Contact us')]");
+
+    private By clickTestCase = By.xpath("//a[contains(text(),'Test Cases')]");
+
+    private By clickProduct = By.xpath("//a[contains(text(),'Products')]");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -42,13 +48,8 @@ public class HomePage {
         return new DeleteAccount(driver);
     }
 
-    public boolean isNavitoLoginPage(String currentUrl) {
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            return wait.until(ExpectedConditions.urlToBe(currentUrl));
-        } catch (Exception e) {
-            return false;
-        }
+    public boolean isNavitoLoginPage() {
+        return Utils.verifyUrl(driver, "https://automationexercise.com/login");
     }
 
     public LoginSignupPage logOut() {
@@ -59,5 +60,24 @@ public class HomePage {
     public ContactForm contactUs() {
         driver.findElement(clickContact).click();
         return new ContactForm(driver);
+    }
+
+    public TestCasePage clickTestCasePage() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        wait.until(ExpectedConditions.elementToBeClickable(clickTestCase)).click();
+        return new TestCasePage(driver);
+    }
+
+    public boolean isNavitoTestCasePage() {
+        return Utils.verifyUrl(driver, "https://automationexercise.com/test_cases");
+    }
+
+    public ProductPage clickProduct() {
+        driver.findElement(clickProduct).click();
+        return new ProductPage(driver);
+    }
+
+    public boolean isNavitoProductPage() {
+        return Utils.verifyUrl(driver, "https://automationexercise.com/products");
     }
 }
