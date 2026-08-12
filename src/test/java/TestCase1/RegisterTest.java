@@ -48,11 +48,21 @@ public class RegisterTest extends BaseTest {
 
         Assert.assertTrue(homePage.isUserLogin());
 
-        // homePage.deleteAccount();
+        homePage.deleteAccount();
 
-        // DeleteAccount deleteAccount = new DeleteAccount(driver);
-        // Assert.assertTrue(deleteAccount.isAccountDelete());
+        DeleteAccount deleteAccount = new DeleteAccount(driver);
+        Assert.assertTrue(deleteAccount.isAccountDelete());
 
-        // deleteAccount.redirectAfterDelete();
+        deleteAccount.redirectAfterDelete();
+    }
+
+    @Test
+    public void registerFail() {
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isHomePageVisible());
+        LoginSignupPage loginSignupPage = homePage.clickSignupLogin();
+        Assert.assertTrue(loginSignupPage.isNewUserSignupVisible());
+        loginSignupPage.signup("Huy Phat", "channel@gmail.com");
+        Assert.assertTrue(loginSignupPage.isSignupFail());
     }
 }

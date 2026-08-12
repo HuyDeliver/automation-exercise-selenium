@@ -48,6 +48,6 @@ public class LoginTest extends BaseTest {
 
         homePage.logOut();
 
-        Assert.assertTrue(homePage.isNavitoLoginPage(driver.getCurrentUrl()));
+        Assert.assertTrue(homePage.isNavitoLoginPage("https://automationexercise.com/login"));
     }
 }

@@ -1,7 +1,11 @@
 package Pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage {
     private WebDriver driver;
@@ -14,12 +18,8 @@ public class HomePage {
 
     private By logOut = By.xpath("//a[contains(text(),'Logout')]");
 
-    private String urlWeb;
+    private By clickContact = By.xpath("//a[contains(text(),'Contact us')]");
 
-    // String urlWeb = driver.getCurrentUrl();
-
-    // Assert.assertEquals(urlWeb, "https://automationexercise.com/login");
-    // }
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -43,11 +43,21 @@ public class HomePage {
     }
 
     public boolean isNavitoLoginPage(String currentUrl) {
-        return currentUrl.equalsIgnoreCase("https://automationexercise.com/login");
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            return wait.until(ExpectedConditions.urlToBe(currentUrl));
+        } catch (Exception e) {
+            return false;
+        }
     }
 
     public LoginSignupPage logOut() {
         driver.findElement(logOut).click();
         return new LoginSignupPage(driver);
+    }
+
+    public ContactForm contactUs() {
+        driver.findElement(clickContact).click();
+        return new ContactForm(driver);
     }
 }

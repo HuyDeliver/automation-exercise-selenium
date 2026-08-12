@@ -11,6 +11,7 @@ public class LoginSignupPage {
     private By signupEmail = By.xpath("//input[@data-qa='signup-email']");
     private By signupButton = By.xpath("//button[@data-qa='signup-button']");
     private By newUserSignupTitle = By.xpath("//h2[text()='New User Signup!']");
+    private By signupFail = By.xpath("//p[text()='Email Address already exist!']");
 
     // Login form (nếu sau này bạn cần)
     private By loginEmail = By.xpath("//input[@data-qa='login-email']");
@@ -33,6 +34,10 @@ public class LoginSignupPage {
 
     public boolean isLoginFail() {
         return !driver.findElements(loginFail).isEmpty();
+    }
+
+    public boolean isSignupFail() {
+        return !driver.findElements(signupFail).isEmpty();
     }
 
     public EnterAccountInfoPage signup(String name, String email) {
