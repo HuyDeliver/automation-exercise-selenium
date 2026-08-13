@@ -6,26 +6,26 @@ import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 
 public class DriverFactory {
     public static WebDriver createDriver() {
-        ChromeOptions options = new ChromeOptions();
-
-        // Chặn quảng cáo Google
+        EdgeOptions options = new EdgeOptions();
         options.addArguments(
-                "--host-resolver-rules=MAP googleads.g.doubleclick.net 127.0.0.1, MAP pagead2.googlesyndication.com 127.0.0.1, MAP adservice.google.com 127.0.0.1");
-        // Không đợi load hết tất cả (bỏ qua ads, tracking, ...)
+                "--host-resolver-rules=" +
+                        "MAP *.doubleclick.net 127.0.0.1," +
+                        "MAP *.googlesyndication.com 127.0.0.1," +
+                        "MAP *.googleadservices.com 127.0.0.1," +
+                        "MAP *.google-analytics.com 127.0.0.1," +
+                        "MAP *.googletagmanager.com 127.0.0.1," +
+                        "MAP *.googletagservices.com 127.0.0.1," +
+                        "MAP *.adnxs.com 127.0.0.1," +
+                        "MAP *.adsystem.com 127.0.0.1");
         options.setPageLoadStrategy(PageLoadStrategy.EAGER);
 
-        // Tắt notification, popup
-        options.addArguments("--disable-notifications");
-        options.addArguments("--disable-popup-blocking");
-
-        WebDriver driver = new ChromeDriver(options);
-
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+        WebDriver driver = new EdgeDriver(options);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
         return driver;
     }
 }

@@ -35,7 +35,7 @@ public class HomePage {
     }
 
     public LoginSignupPage clickSignupLogin() {
-        driver.findElement(signupLoginButton).click();
+        Utils.waitClickElement(driver, signupLoginButton);
         return new LoginSignupPage(driver);
     }
 
@@ -73,7 +73,7 @@ public class HomePage {
     }
 
     public ProductPage clickProduct() {
-        driver.findElement(clickProduct).click();
+        Utils.waitClickElement(driver, clickProduct);
         return new ProductPage(driver);
     }
 
