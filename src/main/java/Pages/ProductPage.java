@@ -1,11 +1,18 @@
 package Pages;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.swing.Action;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Utils.Utils;
 
@@ -27,6 +34,16 @@ public class ProductPage {
 
     private By productName = By.xpath(
             "//div[contains(@class,'single-products')]/div[contains(@class,'productinfo')]/p");
+
+    private By hoverProduct = By.cssSelector(".single-products");
+
+    private By overlayAddCart = By.xpath(".//a[contains(text(),'Add to cart')]");
+
+    private By continueShopping = By.xpath("//button[contains(@class,'close-modal') and text()='Continue Shopping']");
+
+    private By viewCartButton = By.xpath("//div[contains(@class, 'modal-body')]//a[u[text() = 'View Cart']]");
+
+    private By cartModal = By.id("cartModal");
 
     public boolean isProductListVisible() {
         return !driver.findElements(productItem).isEmpty();
@@ -55,4 +72,26 @@ public class ProductPage {
         return driver.findElements(productName).stream().map(WebElement::getText).collect(Collectors.toList());
     }
 
+    public void addToCart(int index) {
+        WebElement hover = driver.findElements(hoverProduct).get(index);
+        new Actions(driver)
+                .scrollToElement(hover)
+                .moveToElement(hover)
+                .perform();
+        Utils.waitClickElement(driver, overlayAddCart);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
+
+    }
+
+    public void continueShopping() {
+        Utils.waitClickElement(driver, continueShopping);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
+    }
+
+    public CartPage viewCart() {
+        Utils.waitClickElement(driver, viewCartButton);
+        return new CartPage(driver);
+    }
 }

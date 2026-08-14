@@ -1,4 +1,4 @@
-package TestCase1;
+package TestCase;
 
 import java.util.List;
 

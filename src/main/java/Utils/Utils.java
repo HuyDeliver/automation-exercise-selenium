@@ -28,4 +28,11 @@ public class Utils {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo({top: arguments[1], left: arguments[0], behavior:'smooth'});", y, x);
     }
+
+    public static void ScrolltoView(WebDriver driver) {
+        WebElement element = driver.findElement(By.xpath("//footer[contains(@id, 'footer')]"));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].scrollIntoView({block: 'end'});",
+                element);
+    }
 }

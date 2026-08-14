@@ -1,4 +1,4 @@
-package TestCase1;
+package TestCase;
 
 import java.util.List;
 
@@ -12,7 +12,6 @@ import Pages.ProductDetail;
 import Pages.ProductPage;
 
 public class ProductTest extends BaseTest {
-
     @Test
     public void accessProduct() {
         HomePage homePage = new HomePage(driver);
@@ -53,4 +52,5 @@ public class ProductTest extends BaseTest {
         }
         softAssert.assertAll();
     }
+
 }

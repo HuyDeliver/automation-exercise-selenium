@@ -26,6 +26,8 @@ public class HomePage {
 
     private By clickProduct = By.xpath("//a[contains(text(),'Products')]");
 
+    private By clickCart = By.xpath("//a[contains(text(),' Cart')]");
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -79,5 +81,10 @@ public class HomePage {
 
     public boolean isNavitoProductPage() {
         return Utils.verifyUrl(driver, "https://automationexercise.com/products");
+    }
+
+    public CartPage RedirectToCartPage() {
+        Utils.waitClickElement(driver, clickCart);
+        return new CartPage(driver);
     }
 }
