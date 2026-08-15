@@ -24,6 +24,11 @@ public class Utils {
         wait.until(ExpectedConditions.elementToBeClickable(elementClick)).click();
     }
 
+    public static void waitClickElementforList(WebDriver driver, WebElement elementClick) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.elementToBeClickable(elementClick)).click();
+    }
+
     public static void scrollWindow(WebDriver driver, int x, int y) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo({top: arguments[1], left: arguments[0], behavior:'smooth'});", y, x);

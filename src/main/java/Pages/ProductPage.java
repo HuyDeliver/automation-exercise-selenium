@@ -4,10 +4,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.Action;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -36,8 +33,6 @@ public class ProductPage {
             "//div[contains(@class,'single-products')]/div[contains(@class,'productinfo')]/p");
 
     private By hoverProduct = By.cssSelector(".single-products");
-
-    private By overlayAddCart = By.xpath(".//a[contains(text(),'Add to cart')]");
 
     private By continueShopping = By.xpath("//button[contains(@class,'close-modal') and text()='Continue Shopping']");
 
@@ -78,10 +73,11 @@ public class ProductPage {
                 .scrollToElement(hover)
                 .moveToElement(hover)
                 .perform();
-        Utils.waitClickElement(driver, overlayAddCart);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement addCart = hover.findElement(
+                By.xpath(".//a[contains(@class,'add-to-cart')]"));
+        Utils.waitClickElementforList(driver, addCart);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
-
     }
 
     public void continueShopping() {

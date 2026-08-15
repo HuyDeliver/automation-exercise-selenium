@@ -28,6 +28,8 @@ public class HomePage {
 
     private By clickCart = By.xpath("//a[contains(text(),' Cart')]");
 
+    private By viewProduct = By.xpath("(//a[contains(text(),'View Product')])");
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -86,5 +88,15 @@ public class HomePage {
     public CartPage RedirectToCartPage() {
         Utils.waitClickElement(driver, clickCart);
         return new CartPage(driver);
+    }
+
+    public ProductDetail redirectProductDetail() {
+        Utils.scrollWindow(driver, 0, 300);
+        Utils.waitClickElement(driver, viewProduct);
+        return new ProductDetail(driver);
+    }
+
+    public boolean isLandedToProductDetail() {
+        return Utils.verifyUrl(driver, "https://automationexercise.com/product_details");
     }
 }
