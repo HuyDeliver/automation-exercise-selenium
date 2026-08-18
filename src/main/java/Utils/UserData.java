@@ -22,6 +22,60 @@ public class UserData {
     private String typeZipcode;
     private String typeMobileNumber;
 
+    // Payment information;
+    private String nameCard;
+    private String numberCard;
+    private String CVC;
+    private String monthExpiration;
+    private String yearExpiration;
+
+    // Getter payment Info
+    public String getNameCard() {
+        return nameCard;
+    }
+
+    public String getNumberCard() {
+        return numberCard;
+    }
+
+    public String getCVC() {
+        return CVC;
+    }
+
+    public String getMonthExpiration() {
+        return monthExpiration;
+    }
+
+    public String getYearExpiration() {
+        return yearExpiration;
+    }
+
+    // Setter payment info
+    public UserData setNameCard(String nameCard) {
+        this.nameCard = nameCard;
+        return this;
+    }
+
+    public UserData setNumberCard(String numberCard) {
+        this.numberCard = numberCard;
+        return this;
+    }
+
+    public UserData setCVC(String CVC) {
+        this.CVC = CVC;
+        return this;
+    }
+
+    public UserData setMonthExpiration(String monthExpiration) {
+        this.monthExpiration = monthExpiration;
+        return this;
+    }
+
+    public UserData setYearExpiration(String yearExpiration) {
+        this.yearExpiration = yearExpiration;
+        return this;
+    }
+
     // Getter Address Information
     public String getFirstName() {
         return typeFirstName;

@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -29,6 +30,11 @@ public class HomePage {
     private By clickCart = By.xpath("//a[contains(text(),' Cart')]");
 
     private By viewProduct = By.xpath("(//a[contains(text(),'View Product')])");
+
+    private By hoverProduct = By.cssSelector(".single-products");
+    private By continueShopping = By.cssSelector("button.btn.btn-success.close-modal.btn-block");
+
+    private By cartModal = By.id("cartModal");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -99,4 +105,24 @@ public class HomePage {
     public boolean isLandedToProductDetail() {
         return Utils.verifyUrl(driver, "https://automationexercise.com/product_details");
     }
+
+    public boolean isLandedtoCartPage() {
+        return Utils.verifyUrl(driver, "https://automationexercise.com/view_cart");
+    }
+
+    public void addToCart() {
+        WebElement hover = driver.findElement(hoverProduct);
+        WebElement addCart = hover.findElement(
+                By.xpath(".//a[contains(@class,'add-to-cart')]"));
+        Utils.waitClickElementforList(driver, addCart);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
+    }
+
+    public void continueShopping() {
+        Utils.waitClickElement(driver, continueShopping);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
+    }
+
 }
