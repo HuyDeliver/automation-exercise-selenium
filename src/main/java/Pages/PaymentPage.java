@@ -3,7 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import Utils.UserData;
+import Utils.CardData;
 import Utils.Utils;
 
 public class PaymentPage {
@@ -22,7 +22,7 @@ public class PaymentPage {
     private By payButton = By.cssSelector("button.form-control.btn.btn-primary.submit-button");
     private By confirmOrder = By.cssSelector(".alert-success.alert");
 
-    public void fillInfoCard(UserData card) {
+    public void fillInfoCard(CardData card) {
         driver.findElement(nameCard).sendKeys(card.getNameCard());
         driver.findElement(numberCard).sendKeys(card.getNumberCard());
         driver.findElement(CVC).sendKeys(card.getCVC());

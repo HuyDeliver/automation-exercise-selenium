@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import Utils.AddressData;
 import Utils.UserData;
 
 public class EnterAccountInfoPage {
@@ -64,19 +65,19 @@ public class EnterAccountInfoPage {
         }
     }
 
-    public void fillAddressInfo(UserData user) {
-        driver.findElement(typeFirstName).sendKeys(user.getFirstName());
-        driver.findElement(typeLastName).sendKeys(user.getLastName());
-        driver.findElement(typeCompany).sendKeys(user.getCompany());
-        driver.findElement(typeAddress1).sendKeys(user.getAddress1());
-        if (user.getAddress2() != null && !user.getAddress2().trim().isEmpty()) {
-            driver.findElement(typeAddress2).sendKeys(user.getAddress2());
+    public void fillAddressInfo(AddressData address) {
+        driver.findElement(typeFirstName).sendKeys(address.getFirstName());
+        driver.findElement(typeLastName).sendKeys(address.getLastName());
+        driver.findElement(typeCompany).sendKeys(address.getCompany());
+        driver.findElement(typeAddress1).sendKeys(address.getAddress1());
+        if (address.getAddress2() != null && !address.getAddress2().trim().isEmpty()) {
+            driver.findElement(typeAddress2).sendKeys(address.getAddress2());
         }
-        new Select(driver.findElement(chooseCountry)).selectByVisibleText(user.getCountry());
-        driver.findElement(typeState).sendKeys(user.getState());
-        driver.findElement(typeCity).sendKeys(user.getCity());
-        driver.findElement(typeZipcode).sendKeys(user.getZipcode());
-        driver.findElement(typeMobileNumber).sendKeys(user.getMobileNumber());
+        new Select(driver.findElement(chooseCountry)).selectByVisibleText(address.getCountry());
+        driver.findElement(typeState).sendKeys(address.getState());
+        driver.findElement(typeCity).sendKeys(address.getCity());
+        driver.findElement(typeZipcode).sendKeys(address.getZipcode());
+        driver.findElement(typeMobileNumber).sendKeys(address.getMobileNumber());
     }
 
     public CreateAccountSuccess CreateAccount() {

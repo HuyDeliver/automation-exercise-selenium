@@ -13,47 +13,99 @@ import Pages.EnterAccountInfoPage;
 import Pages.HomePage;
 import Pages.LoginSignupPage;
 import Pages.PaymentPage;
+import Utils.AddressData;
+import Utils.CardData;
 import Utils.UserData;
 
 public class CheckoutTest extends BaseTest {
+        private UserData user;
+        private AddressData address;
+        private CardData card;
+
         @Test
         public void registerwhileCheckout() {
-                HomePage homePage = new HomePage(driver);
-                Assert.assertTrue(homePage.isHomePageVisible());
-                homePage.addToCart();
-                homePage.continueShopping();
-                homePage.RedirectToCartPage();
-                Assert.assertTrue(homePage.isLandedtoCartPage());
+                initUserData();
+                initAddressData();
+                initCardData();
+                switchToCartPage();
+                switchToLoginPage();
+                SignUp();
+                accountInfo();
+                addressInfo();
+                procceedCheckout();
+                verifyCheckoutInfo();
+                paymentOrder();
+                DeleteAccount();
+        }
 
-                CartPage cartPage = new CartPage(driver);
-                cartPage.procceedCheckout();
-                cartPage.redirLoginSignupPage();
-
-                LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
-
-                EnterAccountInfoPage enterAccountInfoPage = loginSignupPage.signup("Huy Phat", "channel@gmail.com");
-
-                Assert.assertTrue(enterAccountInfoPage.isEnterAccountInfoVisible());
-
-                UserData user = new UserData()
+        private void initUserData() {
+                user = new UserData()
                                 .setTitle("Mr")
                                 .setPassword("18042004")
                                 .setDateOfBirth("18", "April", "2004")
                                 .setOption(true, true);
 
-                enterAccountInfoPage.fillAccountInfo(user);
+        }
 
-                UserData address = new UserData()
+        private void initAddressData() {
+                address = new AddressData()
                                 .setFullName("Huy", "Deliver")
                                 .setCompany("BKT")
                                 .setAddress("Tào Xuyên", "")
                                 .setCountry("Canada", "Miền Bắc", "Thanh hóa")
                                 .setZipcode("200304")
                                 .setMobilePhone("0917196589");
+
+        }
+
+        private void initCardData() {
+                card = new CardData()
+                                .setNameCard("Nguyễn Huy Phát")
+                                .setNumberCard("0917196589")
+                                .setCVC("1972")
+                                .setMonthExpiration("7")
+                                .setYearExpiration("2026");
+        }
+
+        private void switchToCartPage() {
+                HomePage homePage = new HomePage(driver);
+                Assert.assertTrue(homePage.isHomePageVisible());
+                homePage.addToCart();
+                homePage.continueShopping();
+                homePage.RedirectToCartPage();
+                Assert.assertTrue(homePage.isLandedtoCartPage());
+        }
+
+        private void switchToLoginPage() {
+                CartPage cartPage = new CartPage(driver);
+                cartPage.procceedCheckout();
+                cartPage.redirLoginSignupPage();
+
+        }
+
+        private void SignUp() {
+                LoginSignupPage loginSignupPage = new LoginSignupPage(driver);
+                EnterAccountInfoPage enterAccountInfoPage = loginSignupPage.signup("Huy Phat", "channel@gmail.com");
+                Assert.assertTrue(enterAccountInfoPage.isEnterAccountInfoVisible());
+        }
+
+        private void accountInfo() {
+                EnterAccountInfoPage enterAccountInfoPage = new EnterAccountInfoPage(driver);
+
+                enterAccountInfoPage.fillAccountInfo(user);
+        }
+
+        private void addressInfo() {
+                EnterAccountInfoPage enterAccountInfoPage = new EnterAccountInfoPage(driver);
                 enterAccountInfoPage.fillAddressInfo(address);
 
                 enterAccountInfoPage.CreateAccount();
 
+        }
+
+        private void procceedCheckout() {
+                HomePage homePage = new HomePage(driver);
+                CartPage cartPage = new CartPage(driver);
                 CreateAccountSuccess createAccountSuccess = new CreateAccountSuccess(driver);
                 Assert.assertTrue(createAccountSuccess.isAccountCeated());
                 createAccountSuccess.redirectAfterCreate();
@@ -62,13 +114,10 @@ public class CheckoutTest extends BaseTest {
 
                 homePage.RedirectToCartPage();
                 cartPage.procceedCheckout();
+        }
 
+        private void verifyCheckoutInfo() {
                 CheckoutPage checkoutPage = new CheckoutPage(driver);
-                Assert.assertTrue(checkoutPage.isNameOrderRight(address.getFirstName() + " " + address.getLastName()),
-                                "Tên order không trùng khớp");
-
-                Assert.assertTrue(checkoutPage.isCompanyOrder(address.getCompany()));
-
                 SoftAssert softAssert = new SoftAssert();
                 softAssert.assertTrue(
                                 checkoutPage.isNameOrderRight(address.getFirstName() + " " + address.getLastName()),
@@ -84,19 +133,19 @@ public class CheckoutTest extends BaseTest {
                 softAssert.assertAll();
 
                 checkoutPage.placeOrder("che tên sản phẩm");
+        }
 
-                UserData card = new UserData()
-                                .setNameCard("Nguyễn Huy Phát")
-                                .setNumberCard("0917196589")
-                                .setCVC("1972")
-                                .setMonthExpiration("7")
-                                .setYearExpiration("2026");
+        private void paymentOrder() {
 
                 PaymentPage paymentPage = new PaymentPage(driver);
                 paymentPage.fillInfoCard(card);
                 paymentPage.payOrder();
                 Assert.assertTrue(paymentPage.isOrderPlaceSuccess(), "Đơn hàng đặt không thành công");
 
+        }
+
+        private void DeleteAccount() {
+                HomePage homePage = new HomePage(driver);
                 homePage.deleteAccount();
                 DeleteAccount deleteAccount = new DeleteAccount(driver);
                 Assert.assertTrue(deleteAccount.isAccountDelete(), "Xóa tài khoản không thành công");
