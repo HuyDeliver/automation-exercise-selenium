@@ -7,27 +7,21 @@ import org.testng.asserts.SoftAssert;
 import Base.BaseTest;
 import Pages.CartPage;
 import Pages.CheckoutPage;
-import Pages.CreateAccountSuccess;
 import Pages.DeleteAccount;
-import Pages.EnterAccountInfoPage;
 import Pages.HomePage;
 import Pages.LoginSignupPage;
 import Pages.PaymentPage;
 import Utils.AddressData;
 import Utils.CardData;
-import Utils.UserData;
 
-public class RegisterBeforeCheck extends BaseTest {
-
+public class LoginBeforeCheckout extends BaseTest {
     @Test
-    public void checkoutAfterRegister() {
-
-        UserData user = createUserData();
+    public void LoginBeforeCheck() {
         AddressData address = createAddressData();
         CardData card = createCardData();
 
         LoginSignupPage loginSignupPage = goToSignupPage();
-        HomePage homePage = registerAccount(loginSignupPage, user, address);
+        HomePage homePage = loginAccount(loginSignupPage);
 
         CartPage cartPage = addProductAndGoToCart(homePage);
 
@@ -37,15 +31,7 @@ public class RegisterBeforeCheck extends BaseTest {
         PaymentPage paymentPage = placeOrder(checkoutPage);
         fillPaymentAndPay(paymentPage, card);
 
-        // deleteAccount();
-    }
-
-    private UserData createUserData() {
-        return new UserData()
-                .setTitle("Mr")
-                .setPassword("18042004")
-                .setDateOfBirth("18", "April", "2004")
-                .setOption(true, true);
+        deleteAccount();
     }
 
     private AddressData createAddressData() {
@@ -73,17 +59,8 @@ public class RegisterBeforeCheck extends BaseTest {
         return homePage.clickSignupLogin();
     }
 
-    private HomePage registerAccount(LoginSignupPage loginSignupPage, UserData user, AddressData address) {
-        EnterAccountInfoPage enterAccountInfoPage = loginSignupPage.signup("Huy Phat", "channel@gmail.com");
-        Assert.assertTrue(enterAccountInfoPage.isEnterAccountInfoVisible());
-
-        enterAccountInfoPage.fillAccountInfo(user);
-        enterAccountInfoPage.fillAddressInfo(address);
-
-        CreateAccountSuccess createAccountSuccess = enterAccountInfoPage.CreateAccount();
-        Assert.assertTrue(createAccountSuccess.isAccountCeated());
-        createAccountSuccess.redirectAfterCreate();
-
+    private HomePage loginAccount(LoginSignupPage loginSignupPage) {
+        loginSignupPage.login("channel@gmail.com", "18042004");
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isUserLogin());
         return homePage;
