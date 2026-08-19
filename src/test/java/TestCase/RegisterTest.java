@@ -13,7 +13,6 @@ import Utils.AddressData;
 import Utils.UserData;
 
 public class RegisterTest extends BaseTest {
-
     @Test
     public void createAccount() {
         LoginSignupPage loginSignupPage = goToSignupPage();

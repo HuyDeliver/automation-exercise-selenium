@@ -125,4 +125,8 @@ public class HomePage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
     }
 
+    public void compare() {
+
+    }
+
 }
