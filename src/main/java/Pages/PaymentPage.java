@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import Utils.CardData;
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class PaymentPage {
     private WebDriver driver;
@@ -31,7 +31,7 @@ public class PaymentPage {
     }
 
     public void payOrder() {
-        Utils.waitClickElement(driver, payButton);
+        waitUtilities.waitClickElement(driver, payButton);
     }
 
     public boolean isOrderPlaceSuccess() {

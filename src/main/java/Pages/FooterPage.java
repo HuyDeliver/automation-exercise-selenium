@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class FooterPage {
     private WebDriver driver;
@@ -26,14 +26,14 @@ public class FooterPage {
             .xpath("//div[text()='You have been successfully subscribed!']");
 
     public boolean isSubcriptionVisible() {
-        Utils.ScrolltoView(driver);
+        waitUtilities.ScrolltoView(driver);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.visibilityOfElementLocated(titleSubcription)).isDisplayed();
     }
 
     public void subcription(String email) {
         driver.findElement(subcripEmail).sendKeys(email);
-        Utils.waitClickElement(driver, subcripButton);
+        waitUtilities.waitClickElement(driver, subcripButton);
     }
 
     public boolean isSubcripAlert() {

@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class ProductPage {
     private WebDriver driver;
@@ -40,18 +40,22 @@ public class ProductPage {
 
     private By cartModal = By.id("cartModal");
 
+    private By brandTitle = By.cssSelector(".left-sidebar .brands_products>h2");
+
+    private By brandName = By.cssSelector(".brands-name .nav>ul>li>a");
+
     public boolean isProductListVisible() {
         return !driver.findElements(productItem).isEmpty();
     }
 
     public ProductDetail redirectProductDetail() {
-        Utils.scrollWindow(driver, 0, 300);
-        Utils.waitClickElement(driver, viewProduct);
+        waitUtilities.scrollWindow(driver, 0, 300);
+        waitUtilities.waitClickElement(driver, viewProduct);
         return new ProductDetail(driver);
     }
 
     public boolean isLandedToProductPage() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/product_details");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/product_details");
     }
 
     public void searchProduct(String nameproduct) {
@@ -75,19 +79,29 @@ public class ProductPage {
                 .perform();
         WebElement addCart = hover.findElement(
                 By.xpath(".//a[contains(@class,'add-to-cart')]"));
-        Utils.waitClickElementforList(driver, addCart);
+        waitUtilities.waitClickElementforList(driver, addCart);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
     }
 
     public void continueShopping() {
-        Utils.waitClickElement(driver, continueShopping);
+        waitUtilities.waitClickElement(driver, continueShopping);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
     }
 
     public CartPage viewCart() {
-        Utils.waitClickElement(driver, viewCartButton);
+        waitUtilities.waitClickElement(driver, viewCartButton);
         return new CartPage(driver);
     }
+
+    public boolean isBrandInSideBar() {
+        return !driver.findElements(brandTitle).isEmpty();
+    }
+
+    public BrandProductPage viewBrand() {
+        waitUtilities.waitClickElement(driver, brandName);
+        return new BrandProductPage(driver);
+    }
+
 }

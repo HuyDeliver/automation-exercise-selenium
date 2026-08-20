@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Utils {
+public class waitUtilities {
     public static boolean verifyUrl(WebDriver driver, String currentUrl) {
         try {
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));

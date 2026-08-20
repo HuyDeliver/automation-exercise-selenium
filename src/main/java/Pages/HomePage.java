@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class HomePage {
     private WebDriver driver;
@@ -36,6 +36,13 @@ public class HomePage {
 
     private By cartModal = By.id("cartModal");
 
+    private By categoryTitle = By.cssSelector(".left-sidebar>h2");
+
+    private By womenCategory = By
+            .xpath("//div[@class='panel-heading']//a[contains(normalize-space(.), 'Women') and @href='#Women']");
+
+    private By panelCategory = By.cssSelector(".panel-body>ul>li>a");
+
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
@@ -45,7 +52,7 @@ public class HomePage {
     }
 
     public LoginSignupPage clickSignupLogin() {
-        Utils.waitClickElement(driver, signupLoginButton);
+        waitUtilities.waitClickElement(driver, signupLoginButton);
         return new LoginSignupPage(driver);
     }
 
@@ -59,7 +66,7 @@ public class HomePage {
     }
 
     public boolean isNavitoLoginPage() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/login");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/login");
     }
 
     public LoginSignupPage logOut() {
@@ -79,54 +86,63 @@ public class HomePage {
     }
 
     public boolean isNavitoTestCasePage() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/test_cases");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/test_cases");
     }
 
     public ProductPage clickProduct() {
-        Utils.waitClickElement(driver, clickProduct);
+        waitUtilities.waitClickElement(driver, clickProduct);
         return new ProductPage(driver);
     }
 
     public boolean isNavitoProductPage() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/products");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/products");
     }
 
     public CartPage RedirectToCartPage() {
-        Utils.waitClickElement(driver, clickCart);
+        waitUtilities.waitClickElement(driver, clickCart);
         return new CartPage(driver);
     }
 
     public ProductDetail redirectProductDetail() {
-        Utils.scrollWindow(driver, 0, 300);
-        Utils.waitClickElement(driver, viewProduct);
+        waitUtilities.scrollWindow(driver, 0, 300);
+        waitUtilities.waitClickElement(driver, viewProduct);
         return new ProductDetail(driver);
     }
 
     public boolean isLandedToProductDetail() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/product_details");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/product_details");
     }
 
     public boolean isLandedtoCartPage() {
-        return Utils.verifyUrl(driver, "https://automationexercise.com/view_cart");
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/view_cart");
     }
 
     public void addToCart() {
         WebElement hover = driver.findElement(hoverProduct);
         WebElement addCart = hover.findElement(
                 By.xpath(".//a[contains(@class,'add-to-cart')]"));
-        Utils.waitClickElementforList(driver, addCart);
+        waitUtilities.waitClickElementforList(driver, addCart);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
     }
 
     public void continueShopping() {
-        Utils.waitClickElement(driver, continueShopping);
+        waitUtilities.waitClickElement(driver, continueShopping);
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
     }
 
-    public void compare() {
+    public boolean verifySidebar() {
+        return !driver.findElements(categoryTitle).isEmpty();
+    }
 
+    public void womenCategoryClick() {
+        waitUtilities.waitClickElement(driver, womenCategory);
+    }
+
+    public CategoryPage goTocategoryProduct() {
+        waitUtilities.waitClickElement(driver, panelCategory);
+        return new CategoryPage(driver);
     }
 
 }

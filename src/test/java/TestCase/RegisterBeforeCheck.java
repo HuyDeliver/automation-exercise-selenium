@@ -37,7 +37,7 @@ public class RegisterBeforeCheck extends BaseTest {
         PaymentPage paymentPage = placeOrder(checkoutPage);
         fillPaymentAndPay(paymentPage, card);
 
-        // deleteAccount();
+        deleteAccount();
     }
 
     private UserData createUserData() {

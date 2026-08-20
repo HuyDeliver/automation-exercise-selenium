@@ -55,4 +55,17 @@ public class CartTest extends BaseTest {
         Assert.assertTrue(cartPage.verifyQuantity("4"));
     }
 
+    @Test
+    public void removeProductFromCart() {
+        HomePage homePage = new HomePage(driver);
+        Assert.assertTrue(homePage.isHomePageVisible());
+        homePage.addToCart();
+        homePage.continueShopping();
+        homePage.RedirectToCartPage();
+        homePage.isLandedtoCartPage();
+        CartPage cartPage = new CartPage(driver);
+        cartPage.deleteProduct();
+        Assert.assertEquals(cartPage.verifyProduct().size(), 0);
+    }
+
 }

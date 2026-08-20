@@ -3,7 +3,7 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class CheckoutPage {
     private WebDriver driver;
@@ -53,7 +53,7 @@ public class CheckoutPage {
 
     public PaymentPage placeOrder(String message) {
         driver.findElement(textMessage).sendKeys(message);
-        Utils.waitClickElement(driver, placeOrderButton);
+        waitUtilities.waitClickElement(driver, placeOrderButton);
         return new PaymentPage(driver);
     }
 }

@@ -9,7 +9,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Utils.Utils;
+import Utils.waitUtilities;
 
 public class ProductDetail {
     private WebDriver driver;
@@ -74,7 +74,7 @@ public class ProductDetail {
     public CartPage viewCart() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
         wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
-        Utils.waitClickElement(driver, viewCartButton);
+        waitUtilities.waitClickElement(driver, viewCartButton);
         return new CartPage(driver);
     }
 
