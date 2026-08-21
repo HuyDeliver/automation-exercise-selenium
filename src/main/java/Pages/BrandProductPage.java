@@ -15,10 +15,10 @@ public class BrandProductPage {
         this.driver = driver;
     }
 
-    private By product = By.cssSelector("features_items .col-sm-4");
+    private By product = By.cssSelector(".features_items .col-sm-4");
 
-    public boolean verifyUrlBrand(String url) {
-        return waitUtilities.verifyUrl(driver, url);
+    public boolean verifyUrlBrand(String brandname) {
+        return waitUtilities.verifyUrl(driver, "https://automationexercise.com/brand_products/" + brandname + "");
     }
 
     public boolean verifyProduct() {
@@ -27,7 +27,7 @@ public class BrandProductPage {
     }
 
     public void clickProduct(String brandName) {
-        By click = By.xpath("div[@class='brands-name']//a[contains(normalize-space(.), '" + brandName + "')]");
+        By click = By.xpath("//div[@class='brands-name']/ul/li/a[contains(normalize-space(.), '" + brandName + "')]");
         waitUtilities.waitClickElement(driver, click);
     }
 
