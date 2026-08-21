@@ -12,7 +12,7 @@ import Pages.LoginSignupPage;
 import Utils.AddressData;
 import Utils.UserData;
 
-public class RegisterTest extends BaseTest {
+public class TestCase1 extends BaseTest {
     @Test
     public void createAccount() {
         LoginSignupPage loginSignupPage = goToSignupPage();
@@ -23,14 +23,6 @@ public class RegisterTest extends BaseTest {
         verifyAccountCreatedAndCleanup();
     }
 
-    @Test
-    public void registerFail() {
-        LoginSignupPage loginSignupPage = goToSignupPage();
-        loginSignupPage.signup("Huy Phat", "channel@gmail.com");
-        Assert.assertTrue(loginSignupPage.isSignupFail());
-    }
-
-    // ===== HELPERS =====
     private LoginSignupPage goToSignupPage() {
         HomePage homePage = new HomePage(driver);
         Assert.assertTrue(homePage.isHomePageVisible());

@@ -7,7 +7,7 @@ import Base.BaseTest;
 import Pages.ContactForm;
 import Pages.HomePage;
 
-public class ContactTest extends BaseTest {
+public class TestCase6 extends BaseTest {
     @Test
     public void fillContact() {
         HomePage homePage = new HomePage(driver);

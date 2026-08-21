@@ -17,7 +17,7 @@ import Utils.AddressData;
 import Utils.CardData;
 import Utils.UserData;
 
-public class RegisterBeforeCheck extends BaseTest {
+public class TestCase15 extends BaseTest {
 
     @Test
     public void checkoutAfterRegister() {

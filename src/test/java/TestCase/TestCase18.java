@@ -7,7 +7,7 @@ import Base.BaseTest;
 import Pages.CategoryPage;
 import Pages.HomePage;
 
-public class CategoryTest extends BaseTest {
+public class TestCase18 extends BaseTest {
     @Test
     public void viewCategoryProducts() {
         HomePage homePage = new HomePage(driver);

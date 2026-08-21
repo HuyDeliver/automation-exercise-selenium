@@ -14,7 +14,7 @@ import Pages.PaymentPage;
 import Utils.AddressData;
 import Utils.CardData;
 
-public class LoginBeforeCheckout extends BaseTest {
+public class TestCase16 extends BaseTest {
     @Test
     public void LoginBeforeCheck() {
         AddressData address = createAddressData();
