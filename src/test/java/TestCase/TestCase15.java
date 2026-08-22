@@ -37,7 +37,7 @@ public class TestCase15 extends BaseTest {
         PaymentPage paymentPage = placeOrder(checkoutPage);
         fillPaymentAndPay(paymentPage, card);
 
-        deleteAccount();
+        // deleteAccount();
     }
 
     private UserData createUserData() {

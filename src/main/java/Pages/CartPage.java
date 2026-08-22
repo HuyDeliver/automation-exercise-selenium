@@ -29,6 +29,8 @@ public class CartPage {
 
     private By deleteProduct = By.cssSelector(".cart_quantity_delete");
 
+    private By signupLoginButton = By.linkText("Signup / Login");
+
     public List<String> verifyProduct() {
         return driver.findElements(nameProduct).stream().map(WebElement::getText).collect(Collectors.toList());
     }
@@ -53,4 +55,8 @@ public class CartPage {
         wait.until(ExpectedConditions.invisibilityOfElementLocated(nameProduct));
     }
 
+    public LoginSignupPage clickSignupLogin() {
+        waitUtilities.waitClickElement(driver, signupLoginButton);
+        return new LoginSignupPage(driver);
+    }
 }

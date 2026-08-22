@@ -79,10 +79,9 @@ public class HomePage {
         return new ContactForm(driver);
     }
 
-    public TestCasePage clickTestCasePage() {
+    public void clickTestCasePage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
         wait.until(ExpectedConditions.elementToBeClickable(clickTestCase)).click();
-        return new TestCasePage(driver);
     }
 
     public boolean isNavitoTestCasePage() {

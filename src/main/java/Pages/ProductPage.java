@@ -44,6 +44,8 @@ public class ProductPage {
 
     private By brandName = By.cssSelector(".brands-name .nav>ul>li>a");
 
+    private By clickCart = By.xpath("//a[contains(text(),' Cart')]");
+
     public boolean isProductListVisible() {
         return !driver.findElements(productItem).isEmpty();
     }
@@ -102,6 +104,30 @@ public class ProductPage {
     public BrandProductPage viewBrand() {
         waitUtilities.waitClickElement(driver, brandName);
         return new BrandProductPage(driver);
+    }
+
+    public void addProductsRelatedSearchKey() {
+        List<WebElement> hover = driver.findElements(hoverProduct).stream().collect(Collectors.toList());
+        for (WebElement item : hover) {
+            new Actions(driver)
+                    .scrollToElement(item)
+                    .moveToElement(item)
+                    .perform();
+            WebElement addCart = item.findElement(
+                    By.xpath(".//a[contains(@class,'add-to-cart')]"));
+            waitUtilities.waitClickElementforList(driver, addCart);
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(cartModal));
+
+            waitUtilities.waitClickElement(driver, continueShopping);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(cartModal));
+        }
+
+    }
+
+    public CartPage RedirectToCartPage() {
+        waitUtilities.waitClickElement(driver, clickCart);
+        return new CartPage(driver);
     }
 
 }
